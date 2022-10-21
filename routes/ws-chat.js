@@ -21,6 +21,14 @@ const createEchoServer = server => {
                 }
             });
         });
+        ws.on('close', ()=>{
+            const obj = map.get(ws);
+            wsServer.clients.forEach(c=>{
+                if(c.readyState===WebSocket.OPEN){
+                    c.send(`${obj.name} 離開了; 目前人數: ${wsServer.clients.size}`);
+                }
+            });
+        })
     });
 };
 

@@ -8,8 +8,10 @@
 </head>
 <body>
     <div>
-        <input type="text" id="msg">
-        <button onclick="sendMsg()">送出</button>
+        <form onsubmit="sendMsg(); return false;">
+            <input type="text" id="msg">
+            <button>送出</button>
+        </form>
     </div>
     <textarea id="info" cols="50" rows="50" readonly></textarea>
 
@@ -17,7 +19,7 @@
         const msg = document.querySelector('#msg');
         const info = document.querySelector('#info');
         
-        let socket = new WebSocket('ws://localhost:3002');
+        let socket = new WebSocket(`ws://${location.host}`);
         socket.addEventListener('open', e=>{
             info.innerHTML += "--- 連線了 ---\n";
         });
